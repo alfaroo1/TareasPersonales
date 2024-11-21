@@ -10832,14 +10832,14 @@ textarea.form-control-lg {
   background-size: cover;
 }
 
-.header{
+.imagenFondo{
   position: relative;
   background-image: url(../imagenes/fondo_header2.jpg);
   background-size: cover;
   z-index: 1;
   
 }
-.header::before {
+.imagenFondo::before {
   content: '';
   position: absolute;
   top: 0;
