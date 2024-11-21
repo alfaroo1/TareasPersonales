@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tareas Personales | Registro</title>
     <link rel="stylesheet" href="../estilos/styles.css">
+    <link rel="stylesheet" href="../estilos/register.css">
 </head>
 
 <body>
-    <div class="container-fluid p-0">
+    <div class="container-fluid w-100 vh-100 p-0 bg-secondary">
         <!-- Nav -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-4 pb-4">
             <div class="container-fluid">
                 <!-- Imagen redonda -->
                 <a class="navbar-brand d-flex align-items-center" href="#">
@@ -27,31 +28,35 @@
             </div>
         </nav>
         <!-- Main -->
-        <main class="container-lg mt-5 border border-dark rounded p-5">
+        <main class="container-lg bg-dark text-light mt-5 border border-dark rounded p-5">
             <h2 class="text-center">Registrate</h2>
-            <form action="" class="">
-                <div class="">
-                    <label for="" class="form-label">Nombre</label>
+            <form action="" class="row">
+                <div class="col-6">
+                    <label for="" class="form-label col-4">Nombre</label>
                     <input type="text" class="form-control ">
                 </div>
-                <div>
+                <div class="col-6">
                     <label for="" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control text-dark">
                 </div>
-                <div>
+                <div class="col-6">
                     <label for="" class="form-label">Usuario</label>
                     <input type="text" class="form-control">
                 </div>
-                <div>
+                <div class="col-6">
                     <label for="" class="form-label">Contraseña</label>
                     <input type="text" class="form-control">
                 </div>
-                <div>
+                <div class="col-6">
                     <label for="" class="form-label">Tipo de Usuario</label>
                     <select name="tipoUser" id="" class="form-control">
                         <option value="admin">Admin</option>
                         <option value="registrado">Registrado</option>
                     </select>
+                </div>
+                <div class="row gap-3 col-6 mt-4 ms-2">
+                    <button type="submit" class="btn btn-primary mt-2 col-4">Enviar</button>
+                    <button type="reset" class="btn btn-danger mt-2 col-4">Borrar</button>
                 </div>
             </form>
         </main>
