@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Tareas Personales</title>
-    <link rel="icon" type="image/x-icon" href="../imagenes/icon.ico" />
+    <link rel="icon" type="image/x-icon" href="../imagenes/icono.ico" />
     <link href="../estilos/styles.css" rel="stylesheet" />
 </head>
 
@@ -18,21 +18,24 @@
             <div class="container-fluid">
                 <!-- Imagen redonda -->
                 <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img src="/imagenes/img_usuario.jpg" alt="Usuario" class="rounded-circle me-2 border border-white" width="40" height="40">
+                    <img src="../imagenes/img_usuario.jpg" class="rounded-circle me-2 border border-white" alt="" width="40" height="40">
                     <span>Bienvenido a tus tareas personales, Usuario.</span>
                 </a>
 
                 <!-- Botones alineados a la derecha -->
                 <div class="ms-auto d-flex align-items-center">
+                    
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
-                    <a href="logout.html" class="btn btn-danger" >Cerrar Sesión</a>
+                    <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Tarea</a>
+                    <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Evento</a>
+                    <a href="logout.html" class="btn btn-danger fs-6" >Cerrar Sesión</a>
                 </div>
 
             </div>
         </nav>
 
         <!-- Header - set the background image for the header in the line below-->
-        <header class="header py-5 flex-grow-1 text-white" style="background-color: #f8f9fa;">
+        <header class="imagenFondo py-5 flex-grow-1 text-white">
             <div class="intro-text">
                 <h2 class="text-center">Gestiona todas tus tareas y eventos de forma sencilla.</h2>
             </div>
@@ -48,10 +51,11 @@
                     <div class="col-md-4 mb-3 mt-3">
                         <label for="tipo-select" class="form-label fs-5 text-white">Seleccionar Tipo</label>
                         <select id="tipo-select" class="form-select">
-                            <option value="tipo1">Hogar</option>
-                            <option value="tipo2">Trabajo</option>
-                            <option value="tipo3">Estudios</option>
-                            <option value="tipo3">Otra</option>
+                            <option value="todas">- Mostrar Todas -</option>
+                            <option value="hogar">Hogar</option>
+                            <option value="trabajo">Trabajo</option>
+                            <option value="estudios">Estudios</option>
+                            <option value="otra">Otra</option>
                         </select>
                     </div>
                     <!-- Segundo apartado -->
@@ -86,9 +90,10 @@
             </div>
         </header>
 
-        <footer class="py-5 bg-dark mt-auto">
+        <footer class="py-4 bg-dark mt-auto">
             <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+                <p class="m-0 text-center text-white fs-5">Copyright &copy; Tareas Personales 2024</p>
+                <p class="m-0 text-center text-white fs-6">Creadores Carlos Alfaro y Jose Luis Vázquez</p>
             </div>
         </footer>
     </div>
