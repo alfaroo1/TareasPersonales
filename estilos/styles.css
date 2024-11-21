@@ -10833,7 +10833,21 @@ textarea.form-control-lg {
 }
 
 .header{
-  height: 80vh;
-  background-image: url(../imagenes/fondo__header.jpg);
+  position: relative;
+  background-image: url(../imagenes/fondo_header2.jpg);
+  background-size: cover;
+  z-index: 1;
+  
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit; /* Hereda la imagen de fondo */
+  filter: brightness(50%); /* Aplica el filtro de brillo solo a la imagen */
+  z-index: -1; /* Asegura que el filtro esté detrás del contenido */
   background-size: cover;
 }

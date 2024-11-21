@@ -12,7 +12,7 @@
 <body>
     <div class="container-fluid w-100 vh-100 p-0 bg-secondary">
         <!-- Nav -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-4 pb-4">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-3 pb-3">
             <div class="container-fluid">
                 <!-- Imagen redonda -->
                 <a class="navbar-brand d-flex align-items-center" href="#">
@@ -21,9 +21,9 @@
                 </a>
 
                 <!-- Botones alineados a la derecha -->
-                <div class="ms-auto">
-                    <a href="#" class="btn btn-primary me-2">Inicio</a>
-                    <a href="logout.html" class="btn btn-danger">Cerrar Sesión</a>
+                <div class="ms-auto d-flex align-items-center">
+                    <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
+                    <a href="logout.html" class="btn btn-danger" >Cerrar Sesión</a>
                 </div>
             </div>
         </nav>
