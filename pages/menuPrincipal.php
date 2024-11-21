@@ -35,7 +35,7 @@
         </nav>
 
         <!-- Header - set the background image for the header in the line below-->
-        <header class="imagenFondo py-5 flex-grow-1 text-white">
+        <header class="header imagenFondo py-5 flex-grow-1 text-white">
             <div class="intro-text">
                 <h2 class="text-center">Gestiona todas tus tareas y eventos de forma sencilla.</h2>
             </div>

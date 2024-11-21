@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <container class="header container-fluid w-100 vh-100 p-0 bg-secondary">
+    <container class="imagenFondo container-fluid w-100 vh-100 p-0 bg-secondary">
         <!-- Main -->
         <main class="container-lg bg-dark text-light mt-5 border border-dark rounded p-5 ">
             <h2 class="text-center">Registrate</h2>
