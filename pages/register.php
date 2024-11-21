@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="container-fluid w-100 vh-100 p-0 bg-secondary">
+    <div class="container-fluid min-vh-100 d-flex flex-column w-100 p-0 bg-secondary">
         <!-- Nav -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark pt-3 pb-3">
             <div class="container-fluid">
@@ -23,7 +23,7 @@
                 <!-- Botones alineados a la derecha -->
                 <div class="ms-auto d-flex align-items-center">
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
-                    <a href="logout.html" class="btn btn-danger" >Cerrar Sesión</a>
+                    <a href="logout.html" class="btn btn-danger">Cerrar Sesión</a>
                 </div>
             </div>
         </nav>
@@ -60,6 +60,12 @@
                 </div>
             </form>
         </main>
+        <!-- Footer -->
+        <footer class="py-5 bg-dark mt-auto">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+            </div>
+        </footer>
     </div>
 </body>
 
