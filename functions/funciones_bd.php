@@ -26,6 +26,26 @@ function insertarUser($user, $pas, $rol, $mail)
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
 }
+//Funcion para comprobar si el inicio de sesion es correcto
+function inicioSesion($user, $pass, $rol)
+{
+    global $pdo;
+    try {
+        $contador = 0;
+        //Declaramos la consulta
+        $consulta = "SELECT * FROM usuarios WHERE user = $user AND password = $pass AND rol = $rol";
+        //La ejecutamos
+        $listarConsulta = $pdo->query($consulta);
+        //Recorremos la consulta
+        while ($fila = $listarConsulta->fetch()) {
+            $contador++;
+        }
+        //Devolvemos el resultado de contado
+        return $contador;
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
 //Funcion para consultar si existe ese usuario
 function consultaUser($user)
 {
