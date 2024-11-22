@@ -21,7 +21,7 @@ function insertarUser($user, $pas, $rol, $mail)
     global $pdo;
     try {
         $filasInsertadas = $pdo->exec("INSERT INTO usuarios (user,password,rol,mail) VALUES($user,$pas,$rol,$mail)");
-        echo '<p class="text-center mt-2 fs-4">Se ha registrado correctamente</p>';
+        echo '<p class="text-center mt-2 fs-5">Se ha registrado correctamente</p>';
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
