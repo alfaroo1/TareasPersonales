@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Tareas Personales</title>
+    <title>Tareas Personales | ADMIN</title>
     <link rel="icon" type="image/x-icon" href="../imagenes/icono.ico" />
     <link href="../estilos/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -27,8 +27,7 @@
                 <div class="ms-auto d-flex align-items-center">
                     
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
-                    <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Tarea/Evento</a>
-                    <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Eliminar Tarea/Evento</a>
+                    <a href="./opcionesAdmin.php" class="me-2 text-white text-decoration-none fs-6 px-2">Opciones Tarea/Evento</a>
                     <a href="logout.html" class="btn btn-danger fs-6" >Cerrar Sesión</a>
                 </div>
 
