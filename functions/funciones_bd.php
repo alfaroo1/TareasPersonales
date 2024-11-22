@@ -11,7 +11,6 @@ function connect()
         );
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->exec('SET NAMES "utf8"');
-        echo '<h4 class="text-light">Conexión establecida</h4>';
     } catch (PDOException $e) {
         echo 'Error en la conexión: ' . $e->getMessage();
     }
@@ -21,9 +20,28 @@ function insertarUser($user, $pas, $rol, $mail)
 {
     global $pdo;
     try {
-        $filasInsertadas = $pdo->exec("INSERT INTO usuarios 
-        VALUES($user,$pas,$rol,$mail)");
-        echo "Se han añadido $filasInsertadas filas<br />";
+        $filasInsertadas = $pdo->exec("INSERT INTO usuarios (user,password,rol,mail) VALUES($user,$pas,$rol,$mail)");
+        echo '<p class="text-center mt-2 fs-4">Se ha registrado correctamente</p>';
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Funcion para consultar si existe ese usuario
+function consultaUser($user)
+{
+    global $pdo;
+    try {
+        $contador = 0;
+        //Declaramos la consulta
+        $consulta = "SELECT * FROM usuarios WHERE user = $user";
+        //La ejecutamos
+        $listarConsulta = $pdo->query($consulta);
+        //Recorremos la consulta
+        while ($fila = $listarConsulta->fetch()) {
+            $contador++;
+        }
+        //Devolvemos el resultado de contado
+        return $contador;
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
