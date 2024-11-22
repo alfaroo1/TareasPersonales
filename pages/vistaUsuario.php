@@ -55,7 +55,6 @@
                             <option value="hogar">Hogar</option>
                             <option value="trabajo">Trabajo</option>
                             <option value="estudios">Estudios</option>
-                            <option value="otra">Otra</option>
                         </select>
                     </div>
                     <!-- Segundo apartado -->

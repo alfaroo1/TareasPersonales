@@ -22,7 +22,7 @@
                 <!-- Botones alineados a la derecha -->
                 <div class="ms-auto d-flex align-items-center">
                     
-                    <a href="./menuPrincipal.php" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
+                    <a href="./vistaAdmin.php" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Tarea</a>
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Evento</a>
                     <a href="logout.html" class="btn btn-danger fs-6" >Cerrar Sesión</a>
@@ -36,15 +36,15 @@
             <form action="./crearTarea.php" method="post" class="row mt-4">
                 <div class="col-6">
                     <label for="" class="form-label col-4">Titulo</label>
-                    <input type="text" class="form-control " name="titulo">
+                    <input type="text" class="form-control  mb-3" name="titulo">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Fecha limite</label>
-                    <input type="date" name="fecha" id="" class="form-control">
+                    <input type="date" name="fecha" id="" class="form-control mb-3">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Estado</label>
-                    <select name="estado" id="" class="form-control">
+                    <select name="estado" id="" class="form-control mb-3">
                         <option value="pendiente">Pendiente</option>
                         <option value="progreso">En Progreso</option>
                         <option value="completada">Completada</option>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Prioridad</label>
-                    <select name="prioridad" id="" class="form-control">
+                    <select name="prioridad" id="" class="form-control mb-3">
                         <option value="alta">Alta</option>
                         <option value="media">Media</option>
                         <option value="baja">Baja</option>
@@ -60,10 +60,10 @@
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Descripcion</label>
-                    <textarea name="descripcion" id="" class="form-control"></textarea>
+                    <textarea name="descripcion" id="" class="form-control mb-3"></textarea>
                 </div>
-                <div class="row gap-3 col-6 mt-4 ms-2 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary mt-2 col-6">Crear </button>
+                <div class="row gap-3 col-6 mt-4 ms-2 d-flex justify-content-end">
+                    <button type="submit" class="btn h-12 btn-primary mt-2 col-6">Crear </button>
                     <button type="reset" class="btn btn-danger mt-2 col-3">Borrar</button>
                 </div>
             </form>
