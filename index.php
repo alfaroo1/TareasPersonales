@@ -15,11 +15,7 @@
             <div class="col-12 col-md-6 d-flex justify-content-center align-items-center m-3">
                 <main class="bg-dark-subtle container-lg text-dark mt-5 border border-dark rounded p-4 w-75">
                     <h2 class="text-center fs-3 mt-2">Inicia Sesion</h2>
-<<<<<<< HEAD
                     <form action="./index.php" method="POST" class="d-flex flex-column justify-content-center align-items-center w-100 mt-2">
-=======
-                    <form action="./login.php" method="POST" class="d-flex flex-column justify-content-center align-items-center w-100 mt-2">
->>>>>>> 7d94d2732b729bdb9eabd4f2f6578b015b8009e8
                         <div class="col-12 col-md-8 m-2">
                             <label for="usuario" class="form-label fs-6">Usuario</label>
                             <input type="text" name="usuario" class="form-control">
@@ -38,6 +34,10 @@
                         <div class="row gap-3 col-6 mt-4 d-flex justify-content-center">
                             <button type="submit" class="btn btn-success col-5 fs-6">Enviar</button>
                             <button type="reset" class="btn btn-danger col-5 fs-6">Borrar</button>
+                        </div>
+                        <div class="row gap-3 col-6 mt-4 d-flex justify-content-end align-items-end mb-3">
+                            <hr class="mb-0">
+                            <a href="./pages/register.php" class="text-center">¿No estas registrado?</a>
                         </div>
                     </form>
                     <!-- Codigo PHP para insertar el usuario en la BD -->
