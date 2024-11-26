@@ -54,7 +54,11 @@
                             //Controlamos que no haya damos reptidos
                             $sesion = inicioSesion($usuario, $contraseña, $tipo);
                             if ($sesion >= 1) {
-                                header('Location: ../index.php');
+                                if ($_POST['tipoUser'] == "admin") {
+                                    header('Location: ./vistaAdmin.php');
+                                } else if ($_POST['tipoUser'] == "registrado") {
+                                    header('Location: ./vistaUsuario.php');
+                                }
                             } else if ($sesion == 0) {
                                 echo '<p class="text-center mt-2 fs-5">Este usuario no existe</p>';
                             }
