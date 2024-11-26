@@ -35,6 +35,10 @@
                             <button type="submit" class="btn btn-success col-5 fs-6">Enviar</button>
                             <button type="reset" class="btn btn-danger col-5 fs-6">Borrar</button>
                         </div>
+                        <div class="row gap-3 col-6 mt-4 d-flex justify-content-end align-items-end mb-3">
+                            <hr class="mb-0">
+                            <a href="./pages/register.php" class="text-center">¿No estas registrado?</a>
+                        </div>
                     </form>
                     <!-- Codigo PHP para insertar el usuario en la BD -->
                     <?php

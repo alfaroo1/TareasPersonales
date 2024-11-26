@@ -54,6 +54,7 @@
                                 <button type="submit" class="btn btn-success col-5 fs-6">Enviar</button>
                                 <button type="reset" class="btn btn-danger col-5 fs-6">Borrar</button>
                             </div>
+                            
                         </form>
                         <!-- Codigo PHP para insertar el usuario en la BD -->
                         <?php
@@ -78,6 +79,12 @@
                                 } else if ($datosRepetidos == 0) {
                                     //Insertamos los datos del formulario
                                     insertarUser($usuario, $contraseña, $tipo, $gmail);
+                                    //Depende del tipo de usuario redericcionamos 
+                                    if ($_POST['tipoUser'] == "admin") {
+                                        header('Location: ./vistaAdmin.php');
+                                    } else if ($_POST['tipoUser'] == "registrado") {
+                                        header('Location: ./vistaUsuario.php');
+                                    }
                                 }
                             }
                         }
