@@ -15,7 +15,7 @@
             <div class="col-12 col-md-6 d-flex justify-content-center align-items-center m-3">
                 <main class="bg-dark-subtle container-lg text-dark mt-5 border border-dark rounded p-4 w-75">
                     <h2 class="text-center fs-3 mt-2">Inicia Sesion</h2>
-                    <form action="./login.php" method="POST" class="d-flex flex-column justify-content-center align-items-center w-100 mt-2">
+                    <form action="./pages/comprobarAcceso.php" method="POST" class="d-flex flex-column justify-content-center align-items-center w-100 mt-2">
                         <div class="col-12 col-md-8 m-2">
                             <label for="usuario" class="form-label fs-6">Usuario</label>
                             <input type="text" name="usuario" class="form-control">
