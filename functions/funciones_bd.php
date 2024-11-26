@@ -20,7 +20,7 @@ function insertarUser($user, $pas, $rol, $mail)
 {
     global $pdo;
     try {
-        $filasInsertadas = $pdo->exec("INSERT INTO usuarios (user,password,rol,mail) VALUES($user,$pas,$rol,$mail)");
+        $filasInsertadas = $pdo->exec("INSERT INTO usuarios (usuario,password,rol) VALUES($user,$pas,$rol)");
         echo '<p class="text-center mt-2 fs-5">Se ha registrado correctamente</p>';
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
@@ -33,7 +33,7 @@ function inicioSesion($user, $pass, $rol)
     try {
         $contador = 0;
         //Declaramos la consulta
-        $consulta = "SELECT * FROM usuarios WHERE user = $user AND password = $pass AND rol = $rol";
+        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass AND rol = $rol";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta
@@ -53,7 +53,7 @@ function consultaUser($user)
     try {
         $contador = 0;
         //Declaramos la consulta
-        $consulta = "SELECT * FROM usuarios WHERE user = $user";
+        $consulta = "SELECT * FROM usuarios WHERE usuario = $user";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta
@@ -67,23 +67,14 @@ function consultaUser($user)
     }
 }
 //Funcion para insertar tarea
-function insertarTareas($titulo, $descripcion, $estado, $prioridad, $fecha_limite)
+function insertarTareas($titulo, $estado)
 {
     global $pdo;
     try {
-        //Inserccion a relizar
-        $fila = "INSERT INTO tareas (titulo,descripcion,estado,prioridad,fecha_limite,user)
-        VALUES(:titulo,:descripcion,:estado,:prioridad,:fecha_limite)";
-        $inserccion = $pdo->prepare($fila);
-        //Asignacion valores
-        $inserccion->bindParam(':titulo', $titulo);
-        $inserccion->bindParam(':descripcion', $descripcion);
-        $inserccion->bindParam(':estado', $estado);
-        $inserccion->bindParam(':prioridad', $prioridad);
-        $inserccion->bindParam(':fecha_limite', $fecha_limite);
-        //Ejecutamos la inserccion
-        $inserccion->execute();
-        echo "Se han añadido filas<br />";
+        //Ejecutamos la inserccion 
+        $fila = $pdo->exec("INSERT INTO tareas (titulo,estado)
+        VALUES($titulo,$estado)");
+        echo '<p class="text-center mt-2 fs-5">Se ha insertado tarea correctamente</p>';
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }

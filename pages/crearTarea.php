@@ -22,11 +22,11 @@
 
                 <!-- Botones alineados a la derecha -->
                 <div class="ms-auto d-flex align-items-center">
-                    
+
                     <a href="./vistaUsuario.php" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Tarea</a>
                     <a href="./crearEvento.php" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Evento</a>
-                    <a href="logout.html" class="btn btn-danger fs-6" >Cerrar Sesión</a>
+                    <a href="logout.html" class="btn btn-danger fs-6">Cerrar Sesión</a>
                 </div>
 
             </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="row gap-3 col-6 mt-4 ms-2 d-flex justify-content-end align-items-end mb-3">
                     <button type="submit" style="height: 40px;" class="btn btn-primary mt-2 col-6">Crear </button>
-                    <button type="reset"  style="height: 40px;"class="btn btn-danger mt-2 col-3">Borrar</button>
+                    <button type="reset" style="height: 40px;" class="btn btn-danger mt-2 col-3">Borrar</button>
                 </div>
             </form>
             <?php
@@ -74,8 +74,11 @@
                 include "../functions/funciones_bd.php";
                 //Nos conectamos a la base de datos
                 connect();
+                //Sacamos los datos del formulario
+                $title = "'" . $_POST['titulo'] . "'";
+                $estado = "'" . $_POST['estado'] . "'";
                 //Insertamos una fila
-                insertarTareas($_POST['titulo'], $_POST['descripcion'], $_POST['estado'], $_POST['prioridad'], $_POST['fecha']);
+                insertarTareas($title, $estado);
             }
             ?>
         </main>
