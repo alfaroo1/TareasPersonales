@@ -40,11 +40,8 @@
                                 <input type="password" name="contraseña" class="form-control">
                             </div>
                             <div class="col-12 col-md-8 m-2">
-                                <label for="tipoUser" class="form-label fs-6">Tipo de Usuario</label>
-                                <select name="tipoUser" id="tipoUser" class="form-control">
-                                    <option value="admin">Admin</option>
-                                    <option value="registrado">Registrado</option>
-                                </select>
+                                <label for="edad" class="form-label fs-6">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control">
                             </div>
                             <div class="col-12 col-md-8 m-2">
                                 <label for="email" class="form-label fs-6">Correo electronico</label>
