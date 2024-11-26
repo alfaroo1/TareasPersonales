@@ -5,6 +5,7 @@ function connect()
     global $pdo;
     try {
         $pdo = new PDO(
+            // port=3307
             'mysql:host=localhost;dbname=tareas_personales',
             'tareas_personales',
             'pass'
