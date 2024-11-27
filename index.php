@@ -1,3 +1,42 @@
+<?php
+//Iniciamos sesion
+session_start();
+?>
+<?php
+//Variable que va a contener el error
+$error = null;
+//Comporbamos lo que el usuario nos manda por el fomrulario
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include "./functions/funciones_bd.php";
+    include "./functions/funciones.php";
+    //Nos concecatamos a la base de datos
+    connect();
+    //Controlamos que el fomrulario no este vacio
+    if (empty($_POST['usuario']) || empty($_POST['contraseña'])) {
+        $error = '<p class="bg-danger-subtle text-danger border border-danger rounded-1 p-2 text-center mt-2 fs-5">Hay algun apartado sin rellenar</p>';
+    } else {
+        //Añadimos comillas a los datos que vamos a insertar
+        $usuario = "'" . $_POST['usuario'] . "'";
+        $contraseña = "'" . $_POST['contraseña'] . "'";
+        $tipo = "'" . $_POST['tipoUser'] . "'";
+        //Controlamos que no haya damos reptidos
+        $sesion = inicioSesion($usuario, $contraseña, $tipo);
+        if ($sesion >= 1) {
+            if ($_POST['tipoUser'] == "admin") {
+                $_SESSION['token'] = crearToken(session_id());
+                $_SESSION['usuario'] = $_POST['usuario'];
+                header('Location: ./pages/vistaAdmin.php');
+            } else if ($_POST['tipoUser'] == "registrado") {
+                $_SESSION['token'] = crearToken(session_id());
+                $_SESSION['usuario'] = $_POST['usuario'];
+                header('Location: ./pages/vistaUsuario.php');
+            }
+        } else if ($sesion == 0) {
+            $error = '<p class="bg-danger-subtle text-danger border border-danger rounded-1 p-2 text-center mt-2 fs-5">Este usuario no existe</p>';
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <lang="en">
 
@@ -31,6 +70,17 @@
                                 <option value="registrado">Registrado</option>
                             </select>
                         </div>
+                        <!-- Comprobamos el valor de token -->
+                        <?php
+                        $valor = isset($_SESSION['token']) ? $_SESSION['token'] : '';
+                        ?>
+                        <input type="hidden" name="token" value="<?php echo $valor; ?>">
+                        <!-- En caso de que haya error -->
+                        <?php
+                        if ($error != null) {
+                            echo $error;
+                        }
+                        ?>
                         <div class="row gap-3 col-6 mt-4 d-flex justify-content-center">
                             <button type="submit" class="btn btn-success col-5 fs-6">Enviar</button>
                             <button type="reset" class="btn btn-danger col-5 fs-6">Borrar</button>
@@ -40,35 +90,6 @@
                             <a href="./pages/register.php" class="text-center">¿No estas registrado?</a>
                         </div>
                     </form>
-                    <!-- Codigo PHP para insertar el usuario en la BD -->
-                    <?php
-                    //QUEDA CONTROLAR QUE ESTE USUARIO NO ESTE REGISTRADO
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        include "./functions/funciones_bd.php";
-                        //Nos concecatamos a la base de datos
-                        connect();
-                        //Controlamos que el fomrulario no este vacio
-                        if (empty($_POST['usuario']) || empty($_POST['contraseña'])) {
-                            echo '<p class="text-center mt-2 fs-5">Hay algun apartado sin rellenar</p>';
-                        } else {
-                            //Añadimos comillas a los datos que vamos a insertar
-                            $usuario = "'" . $_POST['usuario'] . "'";
-                            $contraseña = "'" . $_POST['contraseña'] . "'";
-                            $tipo = "'" . $_POST['tipoUser'] . "'";
-                            //Controlamos que no haya damos reptidos
-                            $sesion = inicioSesion($usuario, $contraseña, $tipo);
-                            if ($sesion >= 1) {
-                                if ($_POST['tipoUser'] == "admin") {
-                                    header('Location: ./pages/vistaAdmin.php');
-                                } else if ($_POST['tipoUser'] == "registrado") {
-                                    header('Location: ./pages/vistaUsuario.php');
-                                }
-                            } else if ($sesion == 0) {
-                                echo '<p class="text-center mt-2 fs-5">Este usuario no existe</p>';
-                            }
-                        }
-                    }
-                    ?>
                 </main>
             </div>
         </div>

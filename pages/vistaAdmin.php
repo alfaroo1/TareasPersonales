@@ -1,3 +1,11 @@
+<?php
+//Iniciamos sesion
+session_start();
+//Si no existe usuario
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ../index.php?redirigido=true');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,15 +28,23 @@
                 <!-- Imagen redonda -->
                 <a class="navbar-brand d-flex align-items-center" href="#">
                     <img src="../imagenes/perfil_admin.jpg" class="rounded-circle me-2 border border-white" alt="" width="40" height="40">
-                    <span>Bienvenido al centro de control, Admin.</span>
+                    <?php
+                    if (isset($_SESSION['token'])) {
+                        $usuario = $_SESSION['usuario'];
+                    } else if (!isset($_SESSION['token'])) {
+                        echo "No tienes permiso";
+                    } {
+                    }
+                    ?>
+                    <span>Bienvenido al centro de control, <?php echo $usuario; ?></span>
                 </a>
 
                 <!-- Botones alineados a la derecha -->
                 <div class="ms-auto d-flex align-items-center">
-                    
+
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
                     <a href="./opcionesAdmin.php" class="me-2 text-white text-decoration-none fs-6 px-2">Opciones Tarea/Evento</a>
-                    <a href="./logout.php" class="btn btn-danger fs-6" >Cerrar Sesión</a>
+                    <a href="./logout.php" class="btn btn-danger fs-6">Cerrar Sesión</a>
                 </div>
 
             </div>
@@ -37,52 +53,52 @@
         <!-- Header - set the background image for the header in the line below-->
         <header class="header imagenFondo py-5 flex-grow-1 text-white">
             <div class="header-overlay mt-4">
-                 <div class="container d-flex flex-column align-items-center justify-content-center w-100">
+                <div class="container d-flex flex-column align-items-center justify-content-center w-100">
                     <div class="table-responsive w-75">
                         <table class="table border border-1 bg-dark text-white w-100 ">
-                             <thead class="table-dark">
-                                 <tr class="text-center bg-black">
-                                     <th></th>
-                                     <th>Usuario</th>
-                                     <th>Tareas</th>
-                                     <th>Eventos</th>
-                                 </tr>
-                             </thead>
-                             <tbody class="text-white">
-                                 <!-- Fila de ejemplo -->
-                                 <tr>
-                                     <td>1</td>
-                                     <td>Juan Pérez</td>
-                                     <td>
-                                         <ul>
-                                             <li>Completar reporte</li>
-                                             <li>Revisar código</li>
-                                         </ul>
-                                     </td>
-                                     <td>
-                                         <ul>
-                                             <li>Reunión a las 10 AM</li>
-                                             <li>Webinar el viernes</li>
-                                         </ul>
-                                     </td>
-                                 </tr>
-                                 <tr>
-                                     <td>2</td>
-                                     <td>María López</td>
-                                     <td>
-                                         <ul>
-                                             <li>Diseñar prototipo</li>
-                                             <li>Enviar cotización</li>
-                                         </ul>
-                                     </td>
-                                     <td>
-                                         <ul>
-                                             <li>Presentación lunes</li>
-                                             <li>Feedback con cliente</li>
-                                         </ul>
-                                     </td>
-                                 </tr>
-                            <!-- Agrega más filas según sea necesario -->
+                            <thead class="table-dark">
+                                <tr class="text-center bg-black">
+                                    <th></th>
+                                    <th>Usuario</th>
+                                    <th>Tareas</th>
+                                    <th>Eventos</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-white">
+                                <!-- Fila de ejemplo -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>Juan Pérez</td>
+                                    <td>
+                                        <ul>
+                                            <li>Completar reporte</li>
+                                            <li>Revisar código</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li>Reunión a las 10 AM</li>
+                                            <li>Webinar el viernes</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>María López</td>
+                                    <td>
+                                        <ul>
+                                            <li>Diseñar prototipo</li>
+                                            <li>Enviar cotización</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li>Presentación lunes</li>
+                                            <li>Feedback con cliente</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <!-- Agrega más filas según sea necesario -->
                             </tbody>
                         </table>
                     </div>

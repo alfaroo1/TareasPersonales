@@ -6,7 +6,7 @@ function connect()
     try {
         $pdo = new PDO(
             // port=3307
-            'mysql:host=localhost;port=3307;dbname=tareas_personales',
+            'mysql:host=localhost;dbname=tareas_personales',
             'tareas_personales',
             'pass'
         );
@@ -17,12 +17,11 @@ function connect()
     }
 }
 //Funcion para insertar usuarios
-function insertarUser($user, $pas, $rol, $mail)
+function insertarUser($user, $pas)
 {
     global $pdo;
     try {
-        $filasInsertadas = $pdo->exec("INSERT INTO usuarios (usuario,password,rol) VALUES($user,$pas,$rol)");
-        echo '<p class="text-center mt-2 fs-5">Se ha registrado correctamente</p>';
+        $filasInsertadas = $pdo->exec("INSERT INTO usuarios (usuario,password) VALUES($user,$pas)");
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
@@ -48,13 +47,13 @@ function inicioSesion($user, $pass, $rol)
     }
 }
 //Funcion para consultar si existe ese usuario
-function consultaUser($user)
+function consultaUser($user, $pass)
 {
     global $pdo;
     try {
         $contador = 0;
         //Declaramos la consulta
-        $consulta = "SELECT * FROM usuarios WHERE usuario = $user";
+        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta
@@ -76,6 +75,46 @@ function insertarTareas($titulo, $estado)
         $fila = $pdo->exec("INSERT INTO tareas (titulo,estado)
         VALUES($titulo,$estado)");
         echo '<p class="text-center mt-2 fs-5">Se ha insertado tarea correctamente</p>';
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Funcion para comprobar usuarios registrados
+function consultaUserRegistrados($user, $pass)
+{
+    global $pdo;
+    try {
+        $contador = 0;
+        //Declaramos la consulta
+        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass AND rol = 'registrado'";
+        //La ejecutamos
+        $listarConsulta = $pdo->query($consulta);
+        //Recorremos la consulta
+        while ($fila = $listarConsulta->fetch()) {
+            $contador++;
+        }
+        //Devolvemos el resultado de contado
+        return $contador;
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Funcion para comprobar usuarios registrados
+function consultaUserAdmin($user, $pass)
+{
+    global $pdo;
+    try {
+        $contador = 0;
+        //Declaramos la consulta
+        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass AND rol = 'admin'";
+        //La ejecutamos
+        $listarConsulta = $pdo->query($consulta);
+        //Recorremos la consulta
+        while ($fila = $listarConsulta->fetch()) {
+            $contador++;
+        }
+        //Devolvemos el resultado de contado
+        return $contador;
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }

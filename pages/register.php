@@ -1,3 +1,42 @@
+<?php
+//Variable que va a contener el error
+$error = null;
+//Comporbamos lo que el usuario nos manda por el fomrulario
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    include "../functions/funciones_bd.php";
+    //Nos concecatamos a la base de datos
+    connect();
+    //Controlamos que el fomrulario no este vacio
+    if (empty($_POST['usuario']) || empty($_POST['contraseña']) || empty($_POST['email'])) {
+        $error = '<p class="bg-danger-subtle text-danger border border-danger rounded-1 p-2 text-center mt-2 fs-5">Hay algun apartado sin rellenar</p>';
+    } else {
+        //Añadimos comillas a los datos que vamos a insertar
+        $usuario = "'" . $_POST['usuario'] . "'";
+        $contraseña = "'" . $_POST['contraseña'] . "'";
+        //Controlamos que no haya damos reptidos
+        $datosRepetidos = consultaUser($usuario, $contraseña);
+        if ($datosRepetidos >= 1) {
+            $error = '<p class="bg-danger-subtle text-danger border border-danger rounded-1 p-2 text-center mt-2 fs-5">Ya existe este usuario</p>';
+        } else if ($datosRepetidos == 0) {
+            //Insertamos los datos del formulario
+            insertarUser($usuario, $contraseña);
+            //Tipo de usuario
+            $register = consultaUserRegistrados($usuario, $contraseña);
+            $admin = consultaUserAdmin($usuario, $contraseña);
+            echo $register;
+            echo $admin;
+            //Depende del tipo de usuario redericcionamos 
+            if ($admin >= 1 && $register == 0) {
+                echo "mando a admin";
+                header('Location: ./vistaAdmin.php');
+            } else if ($register >= 1 && $admin == 0) {
+                echo "mando a register";
+                header('Location: ./vistaUsuario.php');
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <lang="en">
 
@@ -47,45 +86,18 @@
                                 <label for="email" class="form-label fs-6">Correo electronico</label>
                                 <input type="email" name="email" class="form-control">
                             </div>
+                            <!-- En caso de que haya error -->
+                            <?php
+                            if ($error != null) {
+                                echo $error;
+                            }
+                            ?>
                             <div class="row gap-3 col-6 mt-4 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-success col-5 fs-6">Enviar</button>
                                 <button type="reset" class="btn btn-danger col-5 fs-6">Borrar</button>
                             </div>
-                            
+
                         </form>
-                        <!-- Codigo PHP para insertar el usuario en la BD -->
-                        <?php
-                        //QUEDA CONTROLAR QUE ESTE USUARIO NO ESTE REGISTRADO
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            include "../functions/funciones_bd.php";
-                            //Nos concecatamos a la base de datos
-                            connect();
-                            //Controlamos que el fomrulario no este vacio
-                            if (empty($_POST['usuario']) || empty($_POST['contraseña']) || empty($_POST['email'])) {
-                                echo '<p class="text-center mt-2 fs-5">Hay algun apartado sin rellenar</p>';
-                            } else {
-                                //Añadimos comillas a los datos que vamos a insertar
-                                $usuario = "'" . $_POST['usuario'] . "'";
-                                $contraseña = "'" . $_POST['contraseña'] . "'";
-                                $tipo = "'" . $_POST['tipoUser'] . "'";
-                                $gmail = "'" . $_POST['email'] . "'";
-                                //Controlamos que no haya damos reptidos
-                                $datosRepetidos = consultaUser($usuario);
-                                if ($datosRepetidos >= 1) {
-                                    echo '<p class="text-center mt-2 fs-5">Ya existe este usuario</p>';
-                                } else if ($datosRepetidos == 0) {
-                                    //Insertamos los datos del formulario
-                                    insertarUser($usuario, $contraseña, $tipo, $gmail);
-                                    //Depende del tipo de usuario redericcionamos 
-                                    if ($_POST['tipoUser'] == "admin") {
-                                        header('Location: ./vistaAdmin.php');
-                                    } else if ($_POST['tipoUser'] == "registrado") {
-                                        header('Location: ./vistaUsuario.php');
-                                    }
-                                }
-                            }
-                        }
-                        ?>
                     </main>
                 </div>
             </div>
