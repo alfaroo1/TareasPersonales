@@ -22,44 +22,44 @@
 
                 <!-- Botones alineados a la derecha -->
                 <div class="ms-auto d-flex align-items-center">
-                    
+
                     <a href="./vistaUsuario.php" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
                     <a href="./crearTarea.php" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Tarea</a>
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Evento</a>
-                    <a href="logout.html" class="btn btn-danger fs-6" >Cerrar Sesión</a>
+                    <a href="logout.html" class="btn btn-danger fs-6">Cerrar Sesión</a>
                 </div>
 
             </div>
         </nav>
         <!-- Main -->
         <main class="container-lg bg-dark text-light mt-5 border border-dark rounded p-5 w-75 mb-5">
-        <h2 class="border-bottom border-2">Crea un nuevo evento</h2>
+            <h2 class="border-bottom border-2">Crea un nuevo evento</h2>
             <form action="./crearEvento.php" method="post" class="row mt-4 ">
                 <div class="col-6">
                     <label for="" class="form-label col-4">Titulo</label>
                     <input type="text" class="form-control  mb-3" name="titulo">
                 </div>
-                
+
                 <div class="col-6">
                     <label for="" class="form-label">Fecha</label>
                     <input type="date" name="fecha" id="" class="form-control mb-3">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label col-4">Duracion (min)</label>
-                    <input type="number" class="form-control  mb-3" name="titulo">
+                    <input type="number" class="form-control  mb-3" name="duracion">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label col-4">Ubicacion</label>
-                    <input type="text" class="form-control  mb-3" name="titulo">
+                    <input type="text" class="form-control  mb-3" name="ubicacion">
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Descripcion</label>
                     <textarea name="descripcion" id="" class="form-control mb-3"></textarea>
                 </div>
-                
+
                 <div class="row gap-3 col-6 mt-4 ms-2 d-flex justify-content-end align-items-end mb-3">
                     <button type="submit" style="height: 40px;" class="btn btn-primary mt-2 col-6">Crear </button>
-                    <button type="reset"  style="height: 40px;"class="btn btn-danger mt-2 col-3">Borrar</button>
+                    <button type="reset" style="height: 40px;" class="btn btn-danger mt-2 col-3">Borrar</button>
                 </div>
             </form>
             <?php
@@ -68,8 +68,12 @@
                 include "../functions/funciones_bd.php";
                 //Nos conectamos a la base de datos
                 connect();
+                //Sacamos los datos
+                $titulo = "'" . $_POST['titulo'] . "'";
+                $fecha = "'" . $_POST['fecha'] . "'";
+                $duracion = "'" . $_POST['duracion'] . "'";
                 //Insertamos una fila
-                insertarTareas($_POST['titulo'], $_POST['descripcion'], $_POST['estado'], $_POST['prioridad'], $_POST['fecha']);
+                insertarEvento($titulo, $fecha, $duracion);
             }
             ?>
         </main>

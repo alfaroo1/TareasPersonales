@@ -44,7 +44,7 @@ if (!isset($_SESSION['usuario'])) {
 
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
                     <a href="./crearTarea.php" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Tarea</a>
-                    <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Evento</a>
+                    <a href="./crearEvento.php" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Evento</a>
                     <a href="./logout.php" class="btn btn-danger fs-6">Cerrar Sesión</a>
                 </div>
 
@@ -65,20 +65,23 @@ if (!isset($_SESSION['usuario'])) {
                             <h4 class="text-start border-bottom border-2 pb-2 text-white">TAREAS</h4>
                         </div>
                         <!-- Primer apartado -->
-                        <div class="col-md-4 mb-3 mt-3">
-                            <label for="tipo-select" class="form-label fs-5 text-white">Filtrar Tipo de Tarea</label>
-                            <select id="tipo-select" class="form-select bg-dark text-white">
-                                <option value="todas">- Mostrar Todas -</option>
-                                <option value="hogar">Hogar</option>
-                                <option value="trabajo">Trabajo</option>
-                                <option value="estudios">Estudios</option>
-                            </select>
-                        </div>
+                        <form action="" method="post">
+                            <div class="col-md-4 mb-3 mt-3">
+                                <label for="tipo-select" class="form-label fs-5 text-white">Filtrar Tipo de Tarea</label>
+                                <select id="tipo-select" name="tipo" class="form-select bg-dark text-white">
+                                    <option value="todas">- Mostrar Todas -</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="En Progeso">En Progeso</option>
+                                    <option value="Completada">Completada</option>
+                                </select>
+                            </div>
+                            <button type="submit">Buscar</button>
+                        </form>
                         <!-- Segundo apartado -->
                         <div class="col-md-4 mb-3 mt-3">
                             <label for="tareas-lista" class="form-label fs-5 text-white">Tareas Pendientes</label>
                             <ul id="tareas-lista" class="list-group bg-dark text-white">
-                                <li class="list-group-item bg-dark text-white d-flex justify-content-between">
+                                <!-- <li class="list-group-item bg-dark text-white d-flex justify-content-between">
                                     <label for="tarea1" class="form-check-label">Tarea 1</label>
                                     <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
                                 </li>
@@ -89,7 +92,21 @@ if (!isset($_SESSION['usuario'])) {
                                 <li class="list-group-item bg-dark text-white d-flex justify-content-between">
                                     <label for="tarea3" class="form-check-label">Tarea 3</label>
                                     <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
-                                </li>
+                                </li> -->
+                                <?php
+                                //Sacamos el tipo de tarea que busca el usuario
+                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                    //Sacamos el tipo de tarea que busca el usuario
+                                    $tipo = "'" . $_POST['tipo'] . "'";
+                                    //Añadimos las funciones BD
+                                    include "../functions/funciones_bd.php";
+                                    include "../functions/funciones.php";
+                                    //Nos conectamos a la BD
+                                    connect();
+                                    //Vamos a sacar los datos del array y mostrarlos
+                                    recorrerConsulta(listarTareas($tipo));
+                                }
+                                ?>
                             </ul>
                         </div>
                     </div>
@@ -104,21 +121,10 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="col-md-4 mb-3 w-50">
                             <label for="eventos-lista" class="form-label fs-5 text-white">Eventos Pendientes</label>
                             <ul id="eventos-lista" class="list-group bg-dark text-white">
-                                <li class="list-group-item bg-dark text-white d-flex justify-content-between">
-                                    <label for="evento1" class="form-check-label">Evento 1</label>
-                                    <label for="fecha_evento1" class="form-check-label">05/10/23</label>
-                                    <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
-                                </li>
-                                <li class="list-group-item bg-dark text-white d-flex justify-content-between">
-                                    <label for="evento2" class="form-check-label">Evento 2</label>
-                                    <label for="fecha_evento2" class="form-check-label">15/10/24</label>
-                                    <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
-                                </li>
-                                <li class="list-group-item bg-dark text-white d-flex justify-content-between">
-                                    <label for="evento3" class="form-check-label">Evento 3</label>
-                                    <label for="fecha_evento3" class="form-check-label">25/11/23</label>
-                                    <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
-                                </li>
+                                <?php
+                                //Vamos a sacar los datos del array y mostrarlos
+                                recorrerConsulta(listarEventos());
+                                ?>
                             </ul>
                         </div>
                     </div>

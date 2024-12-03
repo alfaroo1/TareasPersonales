@@ -27,13 +27,33 @@ function insertarUser($user, $pas)
     }
 }
 //Funcion para comprobar si el inicio de sesion es correcto
-function inicioSesion($user, $pass, $rol)
+function inicioSesion($user, $pass)
 {
     global $pdo;
     try {
         $contador = 0;
         //Declaramos la consulta
-        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass AND rol = $rol";
+        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass";
+        //La ejecutamos
+        $listarConsulta = $pdo->query($consulta);
+        //Recorremos la consulta
+        while ($fila = $listarConsulta->fetch()) {
+            $contador++;
+        }
+        //Devolvemos el resultado de contado
+        return $contador;
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Consulta para el tipo de usuaro
+function tipoUser($user, $pass)
+{
+    global $pdo;
+    try {
+        $contador = 0;
+        //Declaramos la consulta
+        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass AND rol='admin'";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta
@@ -79,42 +99,55 @@ function insertarTareas($titulo, $estado)
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
 }
-//Funcion para comprobar usuarios registrados
-function consultaUserRegistrados($user, $pass)
+//Funcion para listar tareas
+function listarTareas($estado)
 {
     global $pdo;
     try {
-        $contador = 0;
+        $arrayTareas = [];
         //Declaramos la consulta
-        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass AND rol = 'registrado'";
+        $consulta = "SELECT titulo,estado FROM tareas WHERE estado = $estado";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta
-        while ($fila = $listarConsulta->fetch()) {
-            $contador++;
+        while ($fila = $listarConsulta->fetch(PDO::FETCH_ASSOC)) {
+            array_push($arrayTareas, $fila);
         }
         //Devolvemos el resultado de contado
-        return $contador;
+        return $arrayTareas;
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
 }
-//Funcion para comprobar usuarios registrados
-function consultaUserAdmin($user, $pass)
+//Funcion para crear evento
+function insertarEvento($titulo, $fecha, $duracion)
 {
     global $pdo;
     try {
-        $contador = 0;
+        //Ejecutamos la inserccion 
+        $fila = $pdo->exec("INSERT INTO eventos (titulo,fecha,duracion)
+        VALUES($titulo,$fecha,$duracion)");
+        echo '<p class="text-center mt-2 fs-5">Se ha insertado tarea correctamente</p>';
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Funcion para listar eventos
+function listarEventos()
+{
+    global $pdo;
+    try {
+        $arrayEventos = [];
         //Declaramos la consulta
-        $consulta = "SELECT * FROM usuarios WHERE usuario = $user AND password = $pass AND rol = 'admin'";
+        $consulta = "SELECT titulo,fecha,duracion FROM eventos ORDER BY fecha";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta
-        while ($fila = $listarConsulta->fetch()) {
-            $contador++;
+        while ($fila = $listarConsulta->fetch(PDO::FETCH_ASSOC)) {
+            array_push($arrayEventos, $fila);
         }
         //Devolvemos el resultado de contado
-        return $contador;
+        return $arrayEventos;
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }

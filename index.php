@@ -18,15 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //Añadimos comillas a los datos que vamos a insertar
         $usuario = "'" . $_POST['usuario'] . "'";
         $contraseña = "'" . $_POST['contraseña'] . "'";
-        $tipo = "'" . $_POST['tipoUser'] . "'";
         //Controlamos que no haya damos reptidos
-        $sesion = inicioSesion($usuario, $contraseña, $tipo);
+        $sesion = inicioSesion($usuario, $contraseña);
+        //Controlaos el tipo de usuario
+        $tipo = tipoUser($usuario, $contraseña);
         if ($sesion >= 1) {
-            if ($_POST['tipoUser'] == "admin") {
+            if ($tipo >= 1) {
                 $_SESSION['token'] = crearToken(session_id());
                 $_SESSION['usuario'] = $_POST['usuario'];
                 header('Location: ./pages/vistaAdmin.php');
-            } else if ($_POST['tipoUser'] == "registrado") {
+            } else if ($tipo == 0) {
                 $_SESSION['token'] = crearToken(session_id());
                 $_SESSION['usuario'] = $_POST['usuario'];
                 header('Location: ./pages/vistaUsuario.php');
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="imagenFondo bg-dark container-fluid vh-100 w-100 d-flex justify-content-center align-items-center p-0">
             <!-- Columna del formulario -->
             <div class="col-12 col-md-6 flex-col justify-content-center align-items-center m-3">
-                <h2 class="text-center  mt-3 text-white text-light fs-4"><span class="fs-2">Tareas Personales  </span>  Organiza tu vida de una forma sencilla</h2>
+                <h2 class="text-center  mt-3 text-white text-light fs-4"><span class="fs-2">Tareas Personales </span> Organiza tu vida de una forma sencilla</h2>
                 <main class="bg-dark-subtle container-lg text-dark mt-5 border border-dark rounded p-4 w-75">
                     <h2 class="text-center fs-3 mt-2">Inicia Sesion</h2>
                     <form action="./index.php" method="POST" class="d-flex flex-column justify-content-center align-items-center w-100 mt-2">

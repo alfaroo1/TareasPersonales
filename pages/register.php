@@ -1,9 +1,14 @@
 <?php
+//Iniciamos sesion
+session_start();
+?>
+<?php
 //Variable que va a contener el error
 $error = null;
 //Comporbamos lo que el usuario nos manda por el fomrulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include "../functions/funciones_bd.php";
+    include "../functions/funciones.php";
     //Nos concecatamos a la base de datos
     connect();
     //Controlamos que el fomrulario no este vacio
@@ -21,16 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Insertamos los datos del formulario
             insertarUser($usuario, $contraseña);
             //Tipo de usuario
-            $register = consultaUserRegistrados($usuario, $contraseña);
-            $admin = consultaUserAdmin($usuario, $contraseña);
-            echo $register;
-            echo $admin;
-            //Depende del tipo de usuario redericcionamos 
-            if ($admin >= 1 && $register == 0) {
-                echo "mando a admin";
+            $tipo = tipoUser($usuario, $contraseña);
+            if ($tipo >= 1) {
+                $_SESSION['token'] = crearToken(session_id());
+                $_SESSION['usuario'] = $_POST['usuario'];
                 header('Location: ./vistaAdmin.php');
-            } else if ($register >= 1 && $admin == 0) {
-                echo "mando a register";
+            } else if ($tipo == 0) {
+                $_SESSION['token'] = crearToken(session_id());
+                $_SESSION['usuario'] = $_POST['usuario'];
                 header('Location: ./vistaUsuario.php');
             }
         }

@@ -46,9 +46,9 @@
                 <div class="col-6">
                     <label for="" class="form-label">Estado</label>
                     <select name="estado" id="" class="form-control mb-3">
-                        <option value="pendiente">Pendiente</option>
-                        <option value="progreso">En Progreso</option>
-                        <option value="completada">Completada</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En Progreso">En Progreso</option>
+                        <option value="Completada">Completada</option>
                     </select>
                 </div>
                 <div class="col-6">
