@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </head>
 
     <body>
-        <div class="bg-dark container-fluid vh-100 w-100 d-flex justify-content-center align-items-center p-0">
+        <div class="imagenFondo container-fluid vh-100 w-100 d-flex justify-content-center align-items-center p-0">
             <!-- Contenedor con imagen a la izquierda y formulario a la derecha -->
             <div class="row w-100 h-100">
                 <!-- Columna de la imagen -->

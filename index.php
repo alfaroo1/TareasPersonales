@@ -44,14 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tareas Personales | Login</title>
-        <link rel="stylesheet" href="../estilos/styles.css">
+        <link rel="stylesheet" href="./estilos/styles.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     </head>
 
     <body>
-        <div class="bg-dark container-fluid vh-100 w-100 d-flex justify-content-center align-items-center p-0">
+        <div class="imagenFondo bg-dark container-fluid vh-100 w-100 d-flex justify-content-center align-items-center p-0">
             <!-- Columna del formulario -->
-            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center m-3">
+            <div class="col-12 col-md-6 flex-col justify-content-center align-items-center m-3">
+                <h2 class="text-center  mt-3 text-white text-light fs-4"><span class="fs-2">Tareas Personales  </span>  Organiza tu vida de una forma sencilla</h2>
                 <main class="bg-dark-subtle container-lg text-dark mt-5 border border-dark rounded p-4 w-75">
                     <h2 class="text-center fs-3 mt-2">Inicia Sesion</h2>
                     <form action="./index.php" method="POST" class="d-flex flex-column justify-content-center align-items-center w-100 mt-2">
@@ -62,13 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-12 col-md-8 m-2">
                             <label for="contraseña" class="form-label fs-6">Contraseña</label>
                             <input type="password" name="contraseña" class="form-control">
-                        </div>
-                        <div class="col-12 col-md-8 m-2">
-                            <label for="tipoUser" class="form-label fs-6">Tipo de Usuario</label>
-                            <select name="tipoUser" id="tipoUser" class="form-control">
-                                <option value="admin">Admin</option>
-                                <option value="registrado">Registrado</option>
-                            </select>
                         </div>
                         <!-- Comprobamos el valor de token -->
                         <?php
