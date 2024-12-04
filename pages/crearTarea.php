@@ -37,7 +37,7 @@
             <form action="./crearTarea.php" method="post" class="row mt-4 ">
                 <div class="col-6">
                     <label for="" class="form-label col-4">Titulo</label>
-                    <input type="text" class="form-control  mb-3" name="titulo">
+                    <input type="text" class="form-control  mb-3" name="titulo" required>
                 </div>
                 <div class="col-6">
                     <label for="" class="form-label">Fecha limite</label>

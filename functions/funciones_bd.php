@@ -6,7 +6,7 @@ function connect()
     try {
         $pdo = new PDO(
             // port=3307
-            'mysql:host=localhost;dbname=tareas_personales',
+            'mysql:host=localhost;port=3307;dbname=tareas_personales',
             'tareas_personales',
             'pass'
         );
@@ -94,7 +94,8 @@ function insertarTareas($titulo, $estado)
         //Ejecutamos la inserccion 
         $fila = $pdo->exec("INSERT INTO tareas (titulo,estado)
         VALUES($titulo,$estado)");
-        echo '<p class="text-center mt-2 fs-5">Se ha insertado tarea correctamente</p>';
+        echo '<p class="text-center mt-4 fs-5">La tarea ha sido creada con éxito!</p>';
+        echo '<p class="text-center fs-6"><a href="./vistaUsuario.php" class="text-decoration-none m-0">Volver al Inicio</a></p>';
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }

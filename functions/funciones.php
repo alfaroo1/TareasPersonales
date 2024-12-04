@@ -15,14 +15,16 @@ function recorrerConsulta($array)
     } else {
         //Recorremos el array que nos devuelve
         foreach ($array as $key => $value) {
-            echo '<li class="border border-light">';
+            echo '<hr class="m-1">';
+            echo '<li class="d-flex justify-content-center align-items-center">';
             //Imprimimos los datos
             foreach ($value as $clave => $valor) {
-                echo '<span>';
+                echo '<span class="px-5">';
                 echo $valor;
                 echo '</span>';
             }
             echo '</li>';
+            echo '<hr class="m-1">';
         }
     }
 }

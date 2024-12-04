@@ -10852,3 +10852,8 @@ textarea.form-control-lg {
   background-size: cover;
 }
 
+
+.listada{
+  margin: 5px;
+  border: solid 1px white;
+}

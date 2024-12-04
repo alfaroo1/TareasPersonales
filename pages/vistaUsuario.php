@@ -64,55 +64,56 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="col-12 mb-2">
                             <h4 class="text-start border-bottom border-2 pb-2 text-white">TAREAS</h4>
                         </div>
-                        <!-- Primer apartado -->
-                        <form action="" method="post">
-                            <div class="col-md-4 mb-3 mt-3">
-                                <label for="tipo-select" class="form-label fs-5 text-white">Filtrar Tipo de Tarea</label>
-                                <select id="tipo-select" name="tipo" class="form-select bg-dark text-white">
-                                    <option value="todas">- Mostrar Todas -</option>
-                                    <option value="Pendiente">Pendiente</option>
-                                    <option value="En Progeso">En Progeso</option>
-                                    <option value="Completada">Completada</option>
-                                </select>
+                        <!-- Bloque Principal Tareas -->
+                        <div class="container mt-4">
+                            <!-- Formulario de Filtro -->
+                            <form action="" method="post" class="d-flex justify-content-center align-items-center mb-4">
+                                <div class="d-flex justify-content-between align-items-center gap-2 w-50">
+                                    <label for="tipo-select" class="form-label fs-5 text-white mb-0">Filtrar:</label>
+                                    <select id="tipo-select" name="tipo" class="form-select bg-dark text-white w-75">
+                                        <option value="todas">- Mostrar Todas -</option>
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="En Progreso">En Progreso</option>
+                                        <option value="Completada">Completada</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Buscar</button>
+                                </div>
+                            </form>
+
+                            <!-- Listado de Tareas -->
+                            <div class="card bg-dark text-white w-50 mx-auto border  border-white p-2 mt-3">
+                                <ul id="tareas-lista" class="list-group list-group-flush list-unstyled">
+                                    <!-- Ejemplo de elementos dinámicos comentados -->
+                                    <!--
+                                    <li class="list-group-item bg-dark text-white d-flex justify-content-between">
+                                        <span>Tarea 1</span>
+                                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    </li>
+                                    -->
+                                    <?php
+                                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                        $tipo = "'" . $_POST['tipo'] . "'";
+                                        include "../functions/funciones_bd.php";
+                                        include "../functions/funciones.php";
+                                        connect();
+                                        recorrerConsulta(listarTareas($tipo));
+                                    }else{
+
+                                     echo  '   <li class="list-group-item bg-dark text-white d-flex justify-content-center p-0">';
+                                     echo  '   <span>Haz click en Buscar para mostrar las tareas!</span>';
+                                     echo  '   </li>';
+                                    }
+                                    ?>
+                                </ul>
                             </div>
-                            <button type="submit">Buscar</button>
-                        </form>
-                        <!-- Segundo apartado -->
-                        <div class="col-md-4 mb-3 mt-3">
-                            <label for="tareas-lista" class="form-label fs-5 text-white">Tareas Pendientes</label>
-                            <ul id="tareas-lista" class="list-group bg-dark text-white">
-                                <!-- <li class="list-group-item bg-dark text-white d-flex justify-content-between">
-                                    <label for="tarea1" class="form-check-label">Tarea 1</label>
-                                    <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
-                                </li>
-                                <li class="list-group-item bg-dark text-white d-flex justify-content-between">
-                                    <label for="tarea2" class="form-check-label">Tarea 2</label>
-                                    <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
-                                </li>
-                                <li class="list-group-item bg-dark text-white d-flex justify-content-between">
-                                    <label for="tarea3" class="form-check-label">Tarea 3</label>
-                                    <button class="form-check-input me-2 bg-danger text-center p-1 d-flex justify-content-center align-items-center text-white">X</button>
-                                </li> -->
-                                <?php
-                                //Sacamos el tipo de tarea que busca el usuario
-                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                    //Sacamos el tipo de tarea que busca el usuario
-                                    $tipo = "'" . $_POST['tipo'] . "'";
-                                    //Añadimos las funciones BD
-                                    include "../functions/funciones_bd.php";
-                                    include "../functions/funciones.php";
-                                    //Nos conectamos a la BD
-                                    connect();
-                                    //Vamos a sacar los datos del array y mostrarlos
-                                    recorrerConsulta(listarTareas($tipo));
-                                }
-                                ?>
-                            </ul>
                         </div>
-                    </div>
+
+
+                        </div>
+                        
 
                     <!-- EVENTOS -->
-                    <div class="row text-center text-dark w-100 d-flex align-items-center justify-content-center mt-4">
+                    <div class="row text-center text-dark w-100 d-flex align-items-center justify-content-center mt-10">
                         <!-- Título EVENTOS -->
                         <div class="col-12 mb-2">
                             <h4 class="text-start border-bottom pb-2 border-2 pb-2 text-white">EVENTOS</h4>
