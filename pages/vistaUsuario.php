@@ -91,17 +91,21 @@ if (!isset($_SESSION['usuario'])) {
                                     </li>
                                     -->
                                     <?php
+                                    //Incluimos las funciones
+                                    include "../functions/funciones_bd.php";
+                                    include "../functions/funciones.php";
+                                    //Conectamos al servidor
+                                    connect();
+                                    //Sacamos el nombre del usuario
+                                    $user = "'" . $_SESSION['usuario'] . "'";
+                                    //Si filtra tareas por tipo
                                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         $tipo = "'" . $_POST['tipo'] . "'";
-                                        include "../functions/funciones_bd.php";
-                                        include "../functions/funciones.php";
-                                        connect();
-                                        recorrerConsulta(listarTareas($tipo));
-                                    }else{
-
-                                     echo  '   <li class="list-group-item bg-dark text-white d-flex justify-content-center p-0">';
-                                     echo  '   <span>Haz click en Buscar para mostrar las tareas!</span>';
-                                     echo  '   </li>';
+                                        recorrerConsulta(listarTareas($tipo, $user));
+                                    } else {
+                                        echo  '   <li class="list-group-item bg-dark text-white d-flex justify-content-center p-0">';
+                                        echo  '   <span>Haz click en Buscar para mostrar las tareas!</span>';
+                                        echo  '   </li>';
                                     }
                                     ?>
                                 </ul>
@@ -109,8 +113,8 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
 
 
-                        </div>
-                        
+                    </div>
+
 
                     <!-- EVENTOS -->
                     <div class="row text-center text-dark w-100 d-flex align-items-center justify-content-center mt-10">
@@ -124,7 +128,7 @@ if (!isset($_SESSION['usuario'])) {
                             <ul id="eventos-lista" class="list-group bg-dark text-white">
                                 <?php
                                 //Vamos a sacar los datos del array y mostrarlos
-                                recorrerConsulta(listarEventos());
+                                recorrerConsulta(listarEventos($user));
                                 ?>
                             </ul>
                         </div>

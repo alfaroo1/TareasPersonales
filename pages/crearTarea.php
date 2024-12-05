@@ -1,3 +1,11 @@
+<?php
+//Iniciamos sesion
+session_start();
+//Si no existe usuario
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ../index.php?redirigido=true');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +25,7 @@
                 <!-- Imagen redonda -->
                 <a class="navbar-brand d-flex align-items-center" href="#">
                     <img src="../imagenes/img_usuario.jpg" class="rounded-circle me-2 border border-white" alt="" width="40" height="40">
-                    <span>Bienvenido a tus tareas personales, Usuario.</span>
+                    <span>Bienvenido a tus tareas personales, <?php echo $_SESSION['usuario']; ?></span>
                 </a>
 
                 <!-- Botones alineados a la derecha -->
@@ -70,15 +78,19 @@
             </form>
             <?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                //Sacamos los datos del formulario
+                $title = "'" . $_POST['titulo'] . "'";
+                $estado = "'" . $_POST['estado'] . "'";
+                //Sacamos el id del usuario
                 //Inlcuimos el archivo donde tenemos la funcion de añadir tareas
                 include "../functions/funciones_bd.php";
                 //Nos conectamos a la base de datos
                 connect();
-                //Sacamos los datos del formulario
-                $title = "'" . $_POST['titulo'] . "'";
-                $estado = "'" . $_POST['estado'] . "'";
-                //Insertamos una fila
-                insertarTareas($title, $estado);
+                $nomUser = "'" . $_SESSION['usuario'] . "'";
+                $id = idUser($nomUser);
+                insertarTareas($title, $estado, $id);
+                //Insertamos el id del user y el id de la tarea
+
             }
             ?>
         </main>

@@ -1,3 +1,11 @@
+<?php
+//Iniciamos sesion
+session_start();
+//Si no existe usuario
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ../index.php?redirigido=true');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +25,7 @@
                 <!-- Imagen redonda -->
                 <a class="navbar-brand d-flex align-items-center" href="#">
                     <img src="../imagenes/img_usuario.jpg" class="rounded-circle me-2 border border-white" alt="" width="40" height="40">
-                    <span>Bienvenido a tus tareas personales, Usuario.</span>
+                    <span>Bienvenido a tus tareas personales, <?php echo $_SESSION['usuario']; ?></span>
                 </a>
 
                 <!-- Botones alineados a la derecha -->
@@ -72,8 +80,11 @@
                 $titulo = "'" . $_POST['titulo'] . "'";
                 $fecha = "'" . $_POST['fecha'] . "'";
                 $duracion = "'" . $_POST['duracion'] . "'";
+                //Sacamos el id
+                $nomUser = "'" . $_SESSION['usuario'] . "'";
+                $id = idUser($nomUser);
                 //Insertamos una fila
-                insertarEvento($titulo, $fecha, $duracion);
+                insertarEvento($titulo, $fecha, $duracion, $id);
             }
             ?>
         </main>

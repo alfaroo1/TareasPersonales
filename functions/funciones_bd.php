@@ -6,7 +6,7 @@ function connect()
     try {
         $pdo = new PDO(
             // port=3307
-            'mysql:host=localhost;port=3307;dbname=tareas_personales',
+            'mysql:host=localhost;dbname=tareas_personales',
             'tareas_personales',
             'pass'
         );
@@ -86,14 +86,41 @@ function consultaUser($user, $pass)
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
 }
-//Funcion para insertar tarea
-function insertarTareas($titulo, $estado)
+//Sacar id usuario
+function idUser($nombre)
 {
     global $pdo;
     try {
-        //Ejecutamos la inserccion 
+        $consulta = "SELECT id 
+        FROM usuarios 
+        WHERE usuario = $nombre";
+        //La ejecutamos
+        $listarConsulta = $pdo->query($consulta);
+        while ($fila = $listarConsulta->fetch(PDO::FETCH_ASSOC)) {
+            foreach ($fila as $key => $value) {
+                if ($key == 'id') {
+                    return $value;
+                }
+            }
+            return $fila;
+        }
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Funcion para insertar tarea e insertar el id de la tearea y el id del user
+function insertarTareas($titulo, $estado, $user_id)
+{
+    global $pdo;
+    try {
+        //Ejecutamos la inserccion de tareas
         $fila = $pdo->exec("INSERT INTO tareas (titulo,estado)
         VALUES($titulo,$estado)");
+        //Sacamos el id de la terea
+        $tarea_id = $pdo->lastInsertId();
+        //Ejecutamos la inserccion en USUARIO_CREA_TAREAS
+        $userTareas = $pdo->exec("INSERT INTO usuario_crea_tareas (usuario_id,tarea_id)
+        VALUES ($user_id,$tarea_id)");
         echo '<p class="text-center mt-4 fs-5">La tarea ha sido creada con éxito!</p>';
         echo '<p class="text-center fs-6"><a href="./vistaUsuario.php" class="text-decoration-none m-0">Volver al Inicio</a></p>';
     } catch (PDOException $excepcion) {
@@ -101,13 +128,22 @@ function insertarTareas($titulo, $estado)
     }
 }
 //Funcion para listar tareas
-function listarTareas($estado)
+function listarTareas($estado, $user)
 {
     global $pdo;
     try {
         $arrayTareas = [];
         //Declaramos la consulta
-        $consulta = "SELECT titulo,estado FROM tareas WHERE estado = $estado";
+        $consulta = "SELECT tareas.id,tareas.titulo,tareas.estado 
+        FROM tareas 
+        JOIN 
+        usuario_crea_tareas ON tareas.id = usuario_crea_tareas.tarea_id
+        JOIN
+        usuarios ON usuario_crea_tareas.usuario_id = usuarios.id
+        WHERE 
+        usuarios.usuario = $user
+        AND
+        estado = $estado";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta
@@ -121,26 +157,38 @@ function listarTareas($estado)
     }
 }
 //Funcion para crear evento
-function insertarEvento($titulo, $fecha, $duracion)
+function insertarEvento($titulo, $fecha, $duracion, $user)
 {
     global $pdo;
     try {
         //Ejecutamos la inserccion 
         $fila = $pdo->exec("INSERT INTO eventos (titulo,fecha,duracion)
         VALUES($titulo,$fecha,$duracion)");
-        echo '<p class="text-center mt-2 fs-5">Se ha insertado tarea correctamente</p>';
+        //Sacamos el id de la terea
+        $evento_id = $pdo->lastInsertId();
+        //Ejecutamos la inserccion en USUARIO_CREA_TAREAS
+        $userTareas = $pdo->exec("INSERT INTO usuario_crea_eventos (usuario_id,evento_id)
+        VALUES ($user,$evento_id)");
+        echo '<p class="text-center mt-2 fs-5">Se ha insertado evento correctamente</p>';
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
 }
 //Funcion para listar eventos
-function listarEventos()
+function listarEventos($user)
 {
     global $pdo;
     try {
         $arrayEventos = [];
         //Declaramos la consulta
-        $consulta = "SELECT titulo,fecha,duracion FROM eventos ORDER BY fecha";
+        $consulta = "SELECT eventos.id,eventos.titulo,eventos.fecha,eventos.duracion 
+        FROM eventos 
+        JOIN 
+        usuario_crea_eventos ON eventos.id = usuario_crea_eventos.evento_id
+        JOIN
+        usuarios ON usuario_crea_eventos.usuario_id = usuarios.id
+        WHERE 
+        usuarios.usuario = $user";
         //La ejecutamos
         $listarConsulta = $pdo->query($consulta);
         //Recorremos la consulta

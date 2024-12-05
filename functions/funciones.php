@@ -11,7 +11,7 @@ function recorrerConsulta($array)
 {
     //Controlamos que la consulta devuelva algun dato
     if (count($array) == 0) {
-        echo "No existe ninguna tarea de este tipo";
+        echo "No existe ninguna tarea o evento";
     } else {
         //Recorremos el array que nos devuelve
         foreach ($array as $key => $value) {
