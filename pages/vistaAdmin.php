@@ -60,44 +60,39 @@ if (!isset($_SESSION['usuario'])) {
                                 <tr class="text-center bg-black">
                                     <th></th>
                                     <th>Usuario</th>
-                                    <th>Tareas</th>
-                                    <th>Eventos</th>
+                                    <th>Contraseña</th>
+                                    <th>Rol</th>
                                 </tr>
                             </thead>
                             <tbody class="text-white">
                                 <!-- Fila de ejemplo -->
-                                <tr>
-                                    <td>1</td>
-                                    <td>Juan Pérez</td>
-                                    <td>
-                                        <ul>
-                                            <li>Completar reporte</li>
-                                            <li>Revisar código</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul>
-                                            <li>Reunión a las 10 AM</li>
-                                            <li>Webinar el viernes</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>María López</td>
-                                    <td>
-                                        <ul>
-                                            <li>Diseñar prototipo</li>
-                                            <li>Enviar cotización</li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul>
-                                            <li>Presentación lunes</li>
-                                            <li>Feedback con cliente</li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                <?php
+                                //Inlcuimos las funciones
+                                include "../functions/funciones.php";
+                                include "../functions/funciones_bd.php";
+                                //Nos conectamos a la BD
+                                connect();
+                                //Recorremos los usuarios que existen
+                                recorrerConsultaUsuarios(listarUsuarios());
+                                ?>
+
+                                <?php
+                                //Cuando de ha enviar modificamos el usuario
+                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                    //Sacamos los datos
+                                    $tipo = "'" . $_POST['tipo'] . "'";
+                                    $id = "'" . $_POST['id'] . "'";
+                                    //Dependiendo del boton que pulse el usuario
+                                    if ($_POST['mod']) {
+                                        //Ejecutamos la modificacion
+                                        modificarUser($tipo, $id);
+                                    }
+                                    if ($_POST['borrar']) {
+                                        //Ejecutamos la eliminacion
+                                        deleteUser($id);
+                                    }
+                                }
+                                ?>
                                 <!-- Agrega más filas según sea necesario -->
                             </tbody>
                         </table>

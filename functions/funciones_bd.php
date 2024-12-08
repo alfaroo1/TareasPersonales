@@ -201,3 +201,63 @@ function listarEventos($user)
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
 }
+//Funcion para listar usuarios
+function listarUsuarios()
+{
+    global $pdo;
+    try {
+        $arrayUsuarios = [];
+        //Declaramos la consulta
+        $consulta = "SELECT id,usuario,rol FROM usuarios";
+        //La ejecutamos
+        $listarConsulta = $pdo->query($consulta);
+        //Recorremos la consulta
+        while ($fila = $listarConsulta->fetch(PDO::FETCH_ASSOC)) {
+            array_push($arrayUsuarios, $fila);
+        }
+        //Devolvemos el resultado de contado
+        return $arrayUsuarios;
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Modificar rol de usuario
+function modificarUser($tipo, $id)
+{
+    global $pdo;
+    try {
+        //Declaramos la modificacion
+        $modificacion = "UPDATE usuarios SET rol = $tipo WHERE id = $id";
+        $resultado = $pdo->query($modificacion);
+        // //Dependiendo del resultado mostramos un mensaje u otro
+        if ($resultado) {
+            echo "Usuario modificado correctamente" . "<br>";
+            echo "Filas actualizafadas " . $resultado->rowCount() . "<br>";
+        } else {
+            $pdo->errorInfo();
+        }
+        // echo "Usuario modificado correctamete";
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
+//Eliminar usuario
+function deleteUser($id)
+{
+    global $pdo;
+    try {
+        //Borramos el usuario
+        $eliminacion = "DELETE FROM usuarios WHERE id = $id";
+        $resultado = $pdo->query($eliminacion);
+        // //Dependiendo del resultado mostramos un mensaje u otro
+        if ($resultado) {
+            echo "Usuario eliminado correctamente" . "<br>";
+            echo "Filas eliminadas " . $resultado->rowCount() . "<br>";
+        } else {
+            $pdo->errorInfo();
+        }
+        // echo "Usuario modificado correctamete";
+    } catch (PDOException $excepcion) {
+        echo "Error en la inserción de tipo " . $excepcion->getMessage();
+    }
+}
