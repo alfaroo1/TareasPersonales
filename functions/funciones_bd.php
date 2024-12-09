@@ -268,7 +268,7 @@ function obtenerUsuarios()
 {
     global $pdo; // Asegúrate de que la conexión a la base de datos está configurada
     try {
-        $sql = "SELECT id, usuario FROM usuarios"; 
+        $sql = "SELECT id, usuario FROM usuarios";
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve un array con los resultados
     } catch (PDOException $e) {
@@ -276,4 +276,53 @@ function obtenerUsuarios()
         return [];
     }
 }
-
+function listarTareasAdmin($id)
+{
+    global $pdo; // Asegúrate de que la conexión a la base de datos está configurada
+    try {
+        $array = [];
+        $sql = "SELECT tareas.id,tareas.titulo,tareas.estado 
+        FROM tareas 
+        JOIN 
+        usuario_crea_tareas ON tareas.id = usuario_crea_tareas.tarea_id
+        JOIN
+        usuarios ON usuario_crea_tareas.usuario_id = usuarios.id
+        WHERE 
+        usuarios.id = $id ";
+        $stmt = $pdo->query($sql);
+        //Recorremos la consulta
+        while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($array, $fila);
+        }
+        //Devolvemos el resultado de contado
+        return $array;
+    } catch (PDOException $e) {
+        echo "Error al obtener usuarios: " . $e->getMessage();
+        return [];
+    }
+}
+function listarEventosAdmin($id)
+{
+    global $pdo; // Asegúrate de que la conexión a la base de datos está configurada
+    try {
+        $array = [];
+        $sql = "SELECT eventos.id,eventos.titulo,eventos.fecha,eventos.duracion 
+        FROM eventos 
+        JOIN 
+        usuario_crea_eventos ON eventos.id = usuario_crea_eventos.evento_id
+        JOIN
+        usuarios ON usuario_crea_eventos.usuario_id = usuarios.id
+        WHERE 
+        usuarios.id = $id ";
+        $stmt = $pdo->query($sql);
+        //Recorremos la consulta
+        while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            array_push($array, $fila);
+        }
+        //Devolvemos el resultado de contado
+        return $array;
+    } catch (PDOException $e) {
+        echo "Error al obtener usuarios: " . $e->getMessage();
+        return [];
+    }
+}

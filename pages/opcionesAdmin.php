@@ -8,6 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -52,33 +53,41 @@ if (!isset($_SESSION['usuario'])) {
             <div class="header-overlay mt-2">
                 <div class="container d-flex flex-column align-items-center justify-content-center w-100">
                     <!-- Selector de usuarios -->
-                    <div class="mb-3">
-                        <label for="userSelect" class="form-label">Selecciona un usuario:</label>
-                        <select class="form-select" id="userSelect">
-                            <option selected disabled>Selecciona un usuario</option>
-                            <?php
-                            include "../functions/funciones.php";
-                            include "../functions/funciones_bd.php";
+                    <div class="mb-3 text-center">
+                        <form action="" method="post">
+                            <label for="userSelect" class="form-label">Selecciona un usuario:</label>
+                            <select class="form-select" id="userSelect" name="user">
+                                <option selected disabled>Selecciona un usuario</option>
+                                <?php
+                                include "../functions/funciones.php";
+                                include "../functions/funciones_bd.php";
 
-                            // Conectamos a la base de datos
-                            connect();
+                                // Conectamos a la base de datos
+                                connect();
 
-                            // Obtenemos los usuarios registrados
-                            $usuarios = obtenerUsuarios();
+                                // Obtenemos los usuarios registrados
+                                $usuarios = obtenerUsuarios();
 
-                            // Llenamos las opciones del select
-                            foreach ($usuarios as $usuario) {
-                                echo '<option value="' . htmlspecialchars($usuario['id']) . '">' . htmlspecialchars($usuario['usuario']) . '</option>';
-                            }
-                            ?>
-                        </select>
+                                // Llenamos las opciones del select
+                                foreach ($usuarios as $usuario) {
+                                    echo '<option value="' . htmlspecialchars($usuario['id']) . '">' . htmlspecialchars($usuario['usuario']) . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <button type="submit" class="btn btn-secondary mt-3">Buscar</button>
+                        </form>
                     </div>
 
                     <!-- Sección de tareas -->
                     <div class="mt-4 w-50">
                         <h4>Tareas</h4>
                         <ul class="list-group" id="taskList">
-                            <li class="list-group-item">Selecciona un usuario para ver sus tareas</li>
+                            <?php
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $usuario = $_POST['user'];
+                                recorrerConsulta(listarTareasAdmin($usuario));
+                            }
+                            ?>
                         </ul>
                     </div>
 
@@ -86,7 +95,12 @@ if (!isset($_SESSION['usuario'])) {
                     <div class="mt-4 w-50">
                         <h4>Eventos</h4>
                         <ul class="list-group" id="eventList">
-                            <li class="list-group-item">Selecciona un usuario para ver sus eventos</li>
+                            <?php
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $usuario = $_POST['user'];
+                                recorrerConsulta(listarEventosAdmin($usuario));
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
