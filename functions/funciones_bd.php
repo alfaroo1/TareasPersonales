@@ -262,3 +262,18 @@ function deleteUser($id)
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
 }
+
+// Obtener usuario
+function obtenerUsuarios()
+{
+    global $pdo; // Asegúrate de que la conexión a la base de datos está configurada
+    try {
+        $sql = "SELECT id, usuario FROM usuarios"; 
+        $stmt = $pdo->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve un array con los resultados
+    } catch (PDOException $e) {
+        echo "Error al obtener usuarios: " . $e->getMessage();
+        return [];
+    }
+}
+

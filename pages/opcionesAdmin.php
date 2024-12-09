@@ -1,6 +1,13 @@
+<?php
+//Iniciamos sesion
+session_start();
+//Si no existe usuario
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ../index.php?redirigido=true');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -20,17 +27,23 @@
                 <!-- Imagen redonda -->
                 <a class="navbar-brand d-flex align-items-center" href="#">
                     <img src="../imagenes/perfil_admin.jpg" class="rounded-circle me-2 border border-white" alt="" width="40" height="40">
-                    <span>Bienvenido al centro de control, Admin.</span>
+                    <?php
+                    if (isset($_SESSION['token'])) {
+                        $usuario = $_SESSION['usuario'];
+                    } else if (!isset($_SESSION['token'])) {
+                        echo "No tienes permiso";
+                    } {
+                    }
+                    ?>
+                    <span>Bienvenido al centro de control, <?php echo $usuario; ?></span>
                 </a>
 
                 <!-- Botones alineados a la derecha -->
                 <div class="ms-auto d-flex align-items-center">
-                    
                     <a href="./vistaAdmin.php" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Opciones Tarea/Evento</a>
-                    <a href="logout.html" class="btn btn-danger fs-6" >Cerrar Sesión</a>
+                    <a href="./logout.php" class="btn btn-danger fs-6">Cerrar Sesión</a>
                 </div>
-
             </div>
         </nav>
 
@@ -43,7 +56,21 @@
                         <label for="userSelect" class="form-label">Selecciona un usuario:</label>
                         <select class="form-select" id="userSelect">
                             <option selected disabled>Selecciona un usuario</option>
-                            <!-- Opciones generadas dinámicamente -->
+                            <?php
+                            include "../functions/funciones.php";
+                            include "../functions/funciones_bd.php";
+
+                            // Conectamos a la base de datos
+                            connect();
+
+                            // Obtenemos los usuarios registrados
+                            $usuarios = obtenerUsuarios();
+
+                            // Llenamos las opciones del select
+                            foreach ($usuarios as $usuario) {
+                                echo '<option value="' . htmlspecialchars($usuario['id']) . '">' . htmlspecialchars($usuario['usuario']) . '</option>';
+                            }
+                            ?>
                         </select>
                     </div>
 
@@ -79,5 +106,6 @@
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
 </body>
+
 
 </html>
