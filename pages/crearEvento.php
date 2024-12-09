@@ -34,7 +34,7 @@ if (!isset($_SESSION['usuario'])) {
                     <a href="./vistaUsuario.php" class="me-2 text-white text-decoration-none fs-6 px-2">Inicio</a>
                     <a href="./crearTarea.php" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Tarea</a>
                     <a href="#" class="me-2 text-white text-decoration-none fs-6 px-2">Crear Evento</a>
-                    <a href="logout.html" class="btn btn-danger fs-6">Cerrar Sesión</a>
+                    <a href="./logout.html" class="btn btn-danger fs-6">Cerrar Sesión</a>
                 </div>
 
             </div>
