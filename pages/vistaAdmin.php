@@ -58,42 +58,37 @@ if (!isset($_SESSION['usuario'])) {
                         <table class="table border border-1 bg-dark text-white w-100 ">
                             <thead class="table-dark">
                                 <tr class="text-center bg-black">
-                                    <th></th>
                                     <th>Usuario</th>
-                                    <th>Contraseña</th>
                                     <th>Rol</th>
+                                    <th>Modificaciones</th>
                                 </tr>
                             </thead>
                             <tbody class="text-white">
-                                <!-- Fila de ejemplo -->
-                                <?php
-                                //Inlcuimos las funciones
-                                include "../functions/funciones.php";
-                                include "../functions/funciones_bd.php";
-                                //Nos conectamos a la BD
-                                connect();
-                                //Recorremos los usuarios que existen
-                                recorrerConsultaUsuarios(listarUsuarios());
-                                ?>
-
-                                <?php
-                                //Cuando de ha enviar modificamos el usuario
-                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                    //Sacamos los datos
-                                    $tipo = "'" . $_POST['tipo'] . "'";
-                                    $id = "'" . $_POST['id'] . "'";
-                                    //Dependiendo del boton que pulse el usuario
-                                    if ($_POST['mod']) {
-                                        //Ejecutamos la modificacion
+                            <?php
+                            include "../functions/funciones.php";
+                            include "../functions/funciones_bd.php";
+                            connect(); 
+                            recorrerConsultaUsuarios(listarUsuarios());
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                // Validamos que los campos obligatorios existan
+                                if (isset($_POST['id']) && !empty($_POST['id'])) {
+                                    $id = $_POST['id'];
+                                
+                                    if (isset($_POST['mod']) && isset($_POST['tipo']) && !empty($_POST['tipo'])) {
+                                        // Modificación del usuario
+                                        $tipo = $_POST['tipo']; // No uses comillas aquí
                                         modificarUser($tipo, $id);
-                                    }
-                                    if ($_POST['borrar']) {
-                                        //Ejecutamos la eliminacion
+                                    } elseif (isset($_POST['borrar'])) {
+                                        // Eliminación del usuario
                                         deleteUser($id);
+                                    } else {
+                                        echo "Error: faltan datos para completar la acción.";
                                     }
+                                } else {
+                                    echo "Error: ID de usuario no válido.";
                                 }
-                                ?>
-                                <!-- Agrega más filas según sea necesario -->
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>

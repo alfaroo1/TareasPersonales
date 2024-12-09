@@ -6,7 +6,7 @@ function connect()
     try {
         $pdo = new PDO(
             // port=3307
-            'mysql:host=localhost;dbname=tareas_personales',
+            'mysql:host=localhost;port=3307;dbname=tareas_personales',
             'tareas_personales',
             'pass'
         );
@@ -169,7 +169,8 @@ function insertarEvento($titulo, $fecha, $duracion, $user)
         //Ejecutamos la inserccion en USUARIO_CREA_TAREAS
         $userTareas = $pdo->exec("INSERT INTO usuario_crea_eventos (usuario_id,evento_id)
         VALUES ($user,$evento_id)");
-        echo '<p class="text-center mt-2 fs-5">Se ha insertado evento correctamente</p>';
+        echo '<p class="text-center mt-2 fs-5">El evento se ha insertado correctamente</p>';
+        echo '<p class="text-center fs-6"><a href="./vistaUsuario.php" class="text-decoration-none m-0">Volver al Inicio</a></p>';
     } catch (PDOException $excepcion) {
         echo "Error en la inserción de tipo " . $excepcion->getMessage();
     }
@@ -232,7 +233,7 @@ function modificarUser($tipo, $id)
         // //Dependiendo del resultado mostramos un mensaje u otro
         if ($resultado) {
             echo "Usuario modificado correctamente" . "<br>";
-            echo "Filas actualizafadas " . $resultado->rowCount() . "<br>";
+            echo "Filas actualizadas " . $resultado->rowCount() . "<br>";
         } else {
             $pdo->errorInfo();
         }

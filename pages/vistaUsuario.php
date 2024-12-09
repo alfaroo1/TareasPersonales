@@ -71,7 +71,6 @@ if (!isset($_SESSION['usuario'])) {
                                 <div class="d-flex justify-content-between align-items-center gap-2 w-50">
                                     <label for="tipo-select" class="form-label fs-5 text-white mb-0">Filtrar:</label>
                                     <select id="tipo-select" name="tipo" class="form-select bg-dark text-white w-75">
-                                        <option value="todas">- Mostrar Todas -</option>
                                         <option value="Pendiente">Pendiente</option>
                                         <option value="En Progreso">En Progreso</option>
                                         <option value="Completada">Completada</option>
