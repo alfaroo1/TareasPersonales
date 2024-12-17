@@ -42,3 +42,9 @@ CREATE TABLE USUARIO_CREA_EVENTOS (
     FOREIGN KEY (usuario_id) REFERENCES USUARIOS(id) ON DELETE CASCADE,
     FOREIGN KEY (evento_id) REFERENCES EVENTOS(id) ON DELETE CASCADE
 );
+
+-- Añadir usuario Administrador
+INSERT INTO USUARIOS (usuario, password, rol)
+VALUES ('admin', 'admin1234', 'admin');
+
+-- El resto de usuarios se deben de añadir mediante el registro de la aplicación. Además de las tareas y los eventos.
